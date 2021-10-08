@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-center" viewBox="0 0 16 16">
+        <path d="M8 1a.5.5 0 0 1 .5.5V6h-1V1.5A.5.5 0 0 1 8 1zm0 14a.5.5 0 0 1-.5-.5V10h1v4.5a.5.5 0 0 1-.5.5zM2 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7z"/>
+      </svg> -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>TodoList - UX</title>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="header">
+
+            <div><span class="task">Tasks</span> <span class="lists">Lists</span></div>
+            <span>
+                <a onclick="addCard()"><img class="im" src="operator_img.jpg" alt="img"></a>
+                <span class="alists">Add List</span>
+            </span>
+
+        </div>
+
+        <div class="container" id="container">
+
+
+        </div>
+
+
+
+
+    </div>
+    </div>
+
+    <div class="addcard">
+        <div class="parent3">
+            <img class="bgm" src="bg1.png" alt="">
+
+            <div class="banner-text">
+                <h3 style="color: red; font-weight: 100;"> Add New List</h3>
+                <input type="text" id="addListText"></a>
+                <br> <br>
+                <a>
+                    <button onclick="home()">ADD</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- <button onclick="hide()" >hide</button>-->
+    <!-- <button onclick="show()" >show</button>  -->
+
+
+
+    <div class="addItemh">
+        <div class="banner2-img">
+
+        </div>
+        <div class="banner-text">
+            <h3 style="color: red; font-weight: 100;"> Add New Item</h3>
+            <input type="text" id="itemList">
+            <br> <br>
+            <a onclick="addItemList(this.id)"> <button>ADD</button></a>
+        </div>
+    </div>
+
+    <!-- <div class="as">
+        <hr class="hr">
+        <span class="cmp">Completed Task</span>
+        <input class="chk" type="checkbox">
+        <span class="pt">Pending Task</span>
+    </div> -->
+
+    </div>
+    <script>
+        var obj = [];
+
+        function addCard() {
+            document.getElementById("addListText").value = "";
+            document.getElementsByClassName("parent")[0].style.display = "none";
+            document.getElementsByClassName("addcard")[0].style.display = "block";
+        }
+
+        function home() {
+
+            var txt = document.getElementById("addListText").value;
+            var id = Date.now();
+            var ele = { ["u" + id]: txt }; id++;
+            obj.push(ele);
+            let key = Object.keys(obj[0]);
+            // console.log(obj);
+            addCardHome();
+            // console.log("home method"+key);
+            // console.log("home method"+txt);
+            document.getElementsByClassName("parent")[0].style.display = "block";
+            document.getElementsByClassName("addcard")[0].style.display = "none";
+
+        }
+        function hide() {
+
+            document.getElementsByClassName("parent")[0].style.display = "none";
+            let card = document.createElement("div");
+        }
+
+        function show() {
+            //     console.log("Hii there");
+            //    document.getElementsByClassName("parent")[0].style.display = "block";
+            //    console.log(obj[0].id);
+        }
+
+
+
+        function addCardHome() {
+
+            const dCard = document.createElement('div');
+            dCard.setAttribute("class", "card");
+           
+            for (let i = 0; i < obj.length; i++) {
+
+                dCard.setAttribute("id", "ca" + `${i}`)
+                //   console.log(" addCardHome method"+obj[i].id);
+
+                var y = Object.keys(obj[i]);
+                // console.log(y[0]);
+                // console.log(obj[i][y]);
+                // console.log(Object.values(obj)[i]);
+
+
+                dCard.innerHTML = `
+          
+                <a  class="ali" onclick="addListItems(this,${i})"><h1>${obj[i][y]}</h1>
+                </a>
+              
+                <div >
+
+                </div>
+
+                <div class="footer  ">
+                    <img class="imadd" id="${i}" onclick="addListItems(this.id)" src="plus.png" >
+                <img class="imdel" id="${i}" onclick="deleteList(this.parentNode.parentNode)" src="delete.png" alt="img" ></img>
+                
+               </div>
+                
+                
+          `
+                var ele = document.getElementById("container");
+                ele.appendChild(dCard);
+            }
+            //   console.log(dCard);
+        }
+
+        // function to delete list  
+
+        function deleteList(selfId) {
+            //  obj = obj.filter(function (value, index, obj) {
+            //     return index != selfId;
+            // });
+            // document.getElementById(`${selfId}`).style.display="none";
+
+            selfId.style.display = "none";
+            // console.log(selfId);
+
+        }
+
+
+        var curId = 0;
+        function addListItems(ids) {
+
+            document.getElementsByClassName("parent")[0].style.display = "none";
+            document.getElementsByClassName("addItemh")[0].style.display = "block";
+
+            // var tm = document.getElementById(0);
+            // console.log(id);
+            //   alert(this.parentNode.id);
+            curId = ids;
+
+            // var s = document.getElementById("ca" + `${id}`).innerHTML;
+            // console.log(s);
+
+
+            //   console.log(id) ;
+            //   console.log(th);
+        }
+
+        function addItemList(id) {
+            // var test = document.querySelectorAll("#ca1");
+            // console.log(test);
+            var tasks = [];
+            var txt = document.getElementById("itemList").value;
+            document.getElementsByClassName("parent")[0].style.display = "block";
+            document.getElementsByClassName("addItemh")[0].style.display = "none";
+            console.log(id);
+            tasks.push(txt);
+            var p = document.createElement("div");
+            p.setAttribute("class", "listitems");
+            // var tmp = document.getElementById(id);
+            // alert(curId);
+            var par = document.getElementById("ca" + curId);
+            var temp = document.getElementById("ca"+curId).childNodes;
+            temp[3].setAttribute("id",`chkk${Date.now()}`)
+            for (var i = 0; i < tasks.length; i++) {
+                p.innerHTML = `<p id ="chk${Date.now()}" onclick="checkboxTo(this.id)"> <input type="checkbox" class="chkbx" ><span> ${tasks[i]}</span></p>`
+                temp[3].appendChild(p);
+            }
+
+            // <input class="chk" type="checkbox">
+            //         <span class="pt">Pending Task</span>
+
+
+
+
+        }
+        function checkboxTo(sid) {
+            console.log("hello");
+            console.log(sid);
+
+            document.getElementById(`${sid}`).style.textDecoration = "line-through";
+
+        }
+        function deleteItem() {
+            // var tasks = [];
+            // var txt = document.getElementById("itemList").value;
+            // document.getElementsByClassName("parent")[0].style.display = "block";
+            // document.getElementsByClassName("addItemh")[0].style.display = "none";
+            var s = document.getElementById(0).innerHTML;
+            console.log(s);
+            // var par = document.getElementById("ca"+curId);
+            // for (var i = 0; i < tasks.length; i++) {
+            //     p.innerHTML = `<p>${tasks[i]}</p>`
+            //     par.appendChild(p);
+            // }
+
+        }
+
+
+    </script>
+</body>
+
+</html>
